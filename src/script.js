@@ -1,7 +1,8 @@
 const island = document.getElementById('island');
 island.addEventListener('click', () => {
-    console.log(island.classList)
-    if(island.classList[0] == 'mobile') {
+    // console.log(island.classList)
+    const isMobile = island.classList[0] == 'mobile'
+    if(isMobile) {
         let nav = document.getElementById('mobile_nav');
         if (nav.classList[nav.classList.length-1] == 'flex-row') {
             nav.classList.add('flex-col');
@@ -13,7 +14,7 @@ island.addEventListener('click', () => {
     }
     if(island.classList[island.classList.length-1] == 'w-20') {
         island.classList.remove('w-20');
-        island.classList.add('w-96');
+        island.classList.add(isMobile ? 'w-[22rem]' : 'w-96');
         var h1Child = document.getElementById('islandH1');
         if (h1Child) {
             h1Child.remove();
@@ -32,7 +33,7 @@ island.addEventListener('click', () => {
             }
         }, 150)
     } else {
-        island.classList.remove('w-96');
+        island.classList.remove(isMobile ? 'w-[22rem]' : 'w-96');
         island.classList.add('w-20');
         var h1Child_0 = document.getElementById('islandH1_0');
         var h1Child_1 = document.getElementById('islandH1_1');
