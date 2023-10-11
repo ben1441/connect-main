@@ -693,6 +693,10 @@ video {
   margin-left: 5rem;
 }
 
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
 .flex {
   display: flex;
 }

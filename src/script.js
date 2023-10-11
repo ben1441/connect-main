@@ -14,6 +14,7 @@ island.addEventListener('click', () => {
     }
     if(island.classList[island.classList.length-1] == 'w-20') {
         island.classList.remove('w-20');
+        if (isMobile) island.classList.add('mt-2');
         island.classList.add(isMobile ? 'w-[22rem]' : 'w-96');
         var h1Child = document.getElementById('islandH1');
         if (h1Child) {
@@ -33,6 +34,7 @@ island.addEventListener('click', () => {
             }
         }, 150)
     } else {
+        if (isMobile) island.classList.remove('mt-2');
         island.classList.remove(isMobile ? 'w-[22rem]' : 'w-96');
         island.classList.add('w-20');
         var h1Child_0 = document.getElementById('islandH1_0');
