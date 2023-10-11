@@ -1,5 +1,16 @@
 const island = document.getElementById('island');
 island.addEventListener('click', () => {
+    console.log(island.classList)
+    if(island.classList[0] == 'mobile') {
+        let nav = document.getElementById('mobile_nav');
+        if (nav.classList[nav.classList.length-1] == 'flex-row') {
+            nav.classList.add('flex-col');
+            nav.classList.remove('flex-row');
+        } else {
+            nav.classList.remove('flex-col');
+            nav.classList.add('flex-row');
+        }
+    }
     if(island.classList[island.classList.length-1] == 'w-20') {
         island.classList.remove('w-20');
         island.classList.add('w-96');
