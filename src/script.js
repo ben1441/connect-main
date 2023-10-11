@@ -15,7 +15,7 @@ island.addEventListener('click', () => {
                 h1.setAttribute('id', 'islandH1_'+i);
                 h1.setAttribute('class', 'text-xl text-center text-white m-4');
                 h1.innerHTML = names[i];
-                a.setAttribute('href', '#'+names[i].toLowerCase());
+                if (i!=0) a.setAttribute('href', '#'+names[i].toLowerCase());
                 a.appendChild(h1);
                 island.appendChild(a);
             }
