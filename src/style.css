@@ -750,6 +750,10 @@ video {
   max-height: max-content;
 }
 
+.min-h-screen {
+  min-height: 100vh;
+}
+
 .w-1 {
   width: 0.25rem;
 }
@@ -844,6 +848,10 @@ video {
 
 .self-end {
   align-self: flex-end;
+}
+
+.overflow-hidden {
+  overflow: hidden;
 }
 
 .rounded-full {
@@ -1231,6 +1239,10 @@ video {
 
   .md\:invisible {
     visibility: hidden;
+  }
+
+  .md\:block {
+    display: block;
   }
 
   .md\:hidden {
