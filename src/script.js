@@ -1,3 +1,29 @@
+window.addEventListener('DOMContentLoaded', () => {
+    // Check the device orientation when the page loads
+    checkOrientation();
+
+    // Listen for orientation change events
+    window.addEventListener('orientationchange', checkOrientation);
+    window.addEventListener('resize', checkOrientation);
+});
+
+function checkOrientation() {
+    const isLandscape = window.matchMedia("(orientation: landscape)").matches;
+    var body = document.getElementById('body_mobile');
+    if (isLandscape && isMobile()) {
+        alert("Please switch to portrait mode for the best experience.");
+        body.classList.add('hidden');
+    } else {
+        if (body.classList.contains('hidden')) {
+            body.classList.remove('hidden');
+        }
+    }
+}
+
+function isMobile() {
+    return /Mobi/i.test(navigator.userAgent);
+}
+
 const island = document.getElementById('island');
 island.addEventListener('click', () => {
     if(island.classList[island.classList.length-1] == 'w-20') {
