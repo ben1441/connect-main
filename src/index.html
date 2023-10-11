@@ -9,8 +9,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sofia+Sans+Condensed:ital,wght@1,800&display=swap">
 </head>
 
-<body class="font-sofia-sans-condensed bg-gradient-to-r dark:from-purple-600 from-purple-500 dark:to-pink-600 to-pink-500">
-    <div class=" h-screen w-screen">
+<body class="">
+    <!-- Desktop version -->
+    <div class="invisible md:visible font-sofia-sans-condensed bg-gradient-to-r dark:from-purple-600 from-purple-500 dark:to-pink-600 to-pink-500 h-screen w-screen">
         <div class="flex flex-row justify-end items-center invisible md:visible">
             <!-- <h1 class="text-white mr-10 text-2xl hover:font-bold transition-all duration-200">Home</h1> -->
             <div class="flex shadow-[0_5px_25px_rgba(0,0,0,0.15)] dark:shadow-[0_5px_25px_rgba(0,0,0,0.25)] dark:backdrop-blur-xl bg-black/20 dark:bg-white/10 items-center justify-center h-10 rounded-full transition-all ease-in-out duration-300 w-20" id="island">
@@ -20,12 +21,12 @@
         </div>
         <div class="flex justify-between invisible md:visible">
             <div class="flex flex-col w-full h-full">
-                <div class="shadow-[0_5px_25px_rgba(0,0,0,0.15)] dark:shadow-[0_5px_25px_rgba(0,0,0,0.25)] dark:backdrop-blur-xl bg-black/[15%] dark:bg-white/10 md:h-[17rem] xl:h-[20rem] w-auto md:min-w-[25rem] max-w-[31.5rem] ml-24 mt-16 p-4 rounded-xl flex flex-col justify-start">
+                <div class="shadow-[0_5px_25px_rgba(0,0,0,0.15)] dark:shadow-[0_5px_25px_rgba(0,0,0,0.25)] dark:backdrop-blur-xl bg-black/[15%] dark:bg-white/10 md:h-[17rem] xl:h-[20rem] w-auto md:min-w-[25rem] max-w-[31.5rem] ml-20 lg:ml-24 mt-16 p-4 rounded-xl flex flex-col justify-start">
                     <h2 class="text-4xl text-white m-8 mt-6">Stake Your Crypto</h2>
                     <p class="text-white text-xl xl:text-2xl mx-8">Earn rewards by staking BNB or Tokens securely. <br>The funds are effecttively collected and stored in our state-of-art smart contract, which give you ROI on daily basis</p>
                     <button class="bg-black/20 dark:bg-white/30 hover:bg-green-400/70 hover:shadow-lg shadow-md rounded-full h-10 w-40 self-end mr-8 text-white font-bold text-2xl hover:scale-[1.02] transition-all ease-in-out duration-200">Stake Now!</button>
                 </div>
-                <div class="shadow-[0_5px_25px_rgba(0,0,0,0.15)] dark:shadow-[0_5px_25px_rgba(0,0,0,0.25)] dark:backdrop-blur-xl bg-black/[15%] dark:bg-white/10 md:h-[8rem] xl:h-[10rem] md:min-w-[28rem] max-w-[31.5rem] ml-24 mt-16 flex justify-center items-center rounded-xl">
+                <div class="shadow-[0_5px_25px_rgba(0,0,0,0.15)] dark:shadow-[0_5px_25px_rgba(0,0,0,0.25)] dark:backdrop-blur-xl bg-black/[15%] dark:bg-white/10 md:h-[8rem] xl:h-[10rem] md:min-w-[28rem] max-w-[31.5rem] ml-20 lg:ml-24 mt-16 flex justify-center items-center rounded-xl">
                     <div class="flex flex-row items-center justify-center">
                         <div class="flex flex-col items-center justify-center">
                             <h1 class="text-white font-bold m-4 text-2xl">Days</h1>
@@ -58,6 +59,8 @@
         <div class="absolute -z-[1] top-[60%] left-[50%] rounded-full h-60 w-60 blur bg-gradient-to-br shadow-md dark:from-purple-600 from-purple-500 dark:to-pink-600 to-pink-500"></div>
         <div class="absolute -z-[1] top-[8%] left-[70%] rounded-full h-60 w-60 blur bg-gradient-to-br shadow-md dark:from-purple-600 from-purple-500 dark:to-pink-600 to-pink-500"></div>
     </div>
+    <!-- Mobile Version -->
+    <div class="md:invisible font-sofia-sans-condensed bg-gradient-to-r dark:from-purple-600 from-purple-500 dark:to-pink-600 to-pink-500 h-screen w-screen"></div>
     <script src="./script.js"></script>
 </body>
 </html>
